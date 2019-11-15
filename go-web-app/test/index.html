@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Go WebAssembly App</title>
+	</head>
+	<body>
+		<script src="wasm_exec.js"></script>
+		<script>
+			// Polyfill
+			if (!WebAssembly.instantiateStreaming) {
+				WebAssembly.instantiateStreaming = async (res, obj) => (
+					await WebAssembly.instantiate(await (await res).arrayBuffer(), obj)
+				)
+			}
+			const go = new Go()
+			WebAssembly.instantiateStreaming(fetch('/build/out.wasm'), go.importObject).then(result => {
+				go.run(result.instance)
+				WebAssembly.instantiate(result.module, go.importObject)
+			})
+
+			const tryConnectToReload = address => {
+        const conn = new WebSocket(address)
+
+        conn.onclose = () => {
+          setTimeout(() => {
+            tryConnectToReload(address)
+          }, 2000)
+        }
+
+        conn.onmessage = evt => location.reload()
+      }
+      try {
+        if (window.WebSocket) {
+          // The reload endpoint is hosted on a statically defined port.
+          tryConnectToReload('ws://localhost:8080/reload')
+        } else {
+          console.log( 'Your browser does not support WebSockets :(')
+        }
+      } catch (e) {
+        console.error('Exception during connecting to Reload: ' + e)
+      }
+
+		</script>
+	</body>
+	</html>
