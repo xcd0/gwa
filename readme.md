@@ -20,8 +20,11 @@
 
 # 感想
 
-* small is beautiful.
+* small is beautiful.  
+	go-web-appの小ささはすごい。
 * よいと思う
+	* electronはchromiumの更新があると大変らしい。
+	* gotronは悪くはない。
 * まだ44コミットしかない出来立てに近いが、将来性が大きいと判断した。
 * ドキュメントもないがまだソースコードが把握できる範囲だと考えよう。
 
