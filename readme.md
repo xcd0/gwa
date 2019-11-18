@@ -1,22 +1,26 @@
 # go-wab-app
 
-# したこと
+## したこと
+
+これを参考にした。 https://dev.to/talentlessguy/create-frontend-go-apps-using-go-web-app-56cb
 
 * tinygo を使う。
 * dockerが推奨されていたが動かない。
 
+## インストール
 * とりあえず非推奨のwindows版を利用した。
-	* 下のをdlして/c/tinygoに展開。
-		* https://github.com/tinygo-org/tinygo/releases/download/v0.9.0/tinygo0.9.0.windows-amd64.zip
-	* `export PATH=$PATH:/c/tinygo/bin`する。
-	* `git clone https://github.com/talentlessguy/go-web-app` する。
-	* `go build && mv go-web-app gwa && cp gwa $GOBIN` する。
+* 下のをdlして/c/tinygoに展開。
+	* https://github.com/tinygo-org/tinygo/releases/download/v0.9.0/tinygo0.9.0.windows-amd64.zip
+* `export PATH=$PATH:/c/tinygo/bin`する。
+* `go get -u -v https://github.com/talentlessguy/go-web-app` する。
+* `cd $GOPATH/src/github.com/talentlessguy/go-web-app && go build -o gwa && cp gwa $GOBIN` する。
+
+## アプリ作成
 	* 好きなところで`gwa init 名前`する。
 	* `cd 名前 && gwa build` する。
 		* これで`build`ディレクトリにwasmのファイルが生成される。
 	* `gwa dev --port 8080`してブラウザでlocalhost:8080する。
 	* 見えた。
-	* これを参考にした。 https://dev.to/talentlessguy/create-frontend-go-apps-using-go-web-app-56cb
 
 # 感想
 
